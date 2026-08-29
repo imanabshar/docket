@@ -1,5 +1,6 @@
-from utils.extract_text import is_text_based_pdf
+from utils.extract_text import is_text_based_pdf, extract_text_from_pdf, extract_text_from_image
 
-print(is_text_based_pdf("sample_docs/text_based_test.pdf"))    
-print(is_text_based_pdf("sample_docs/scanned_based_test.pdf"))  
-print(is_text_based_pdf("sample_docs/test_pdf.pdf"))             
+if is_text_based_pdf("sample_docs/text_based_test.pdf"):
+    print(extract_text_from_pdf("sample_docs/text_based_test.pdf"))
+
+print(extract_text_from_image("sample_docs/test_image.png"))

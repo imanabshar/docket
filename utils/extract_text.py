@@ -32,7 +32,7 @@ def extract_text_from_mixed_pdf(file_path):
             if text and text.strip():
                 full_text += text + "\n"
             else:
-                page_image = page.to_image(resolution=300).original
+                page_image = page.to_image(resolution=150).original
                 page_text = ocr_pil_image(page_image)
                 full_text += page_text + "\n"
     return full_text

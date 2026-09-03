@@ -1,8 +1,8 @@
 from datetime import datetime
 from mrz.checker.td3 import TD3CodeChecker
+from mrz.checker.td1 import TD1CodeChecker
 
-# decodes an mrz block(2 lines for passports/eid) into structured fields
-# td3 is the mrz format used by passports and similar id cards
+# decodes an mrz block(lines for passports/eid) into structured fields
 def format_mrz_date(yymmdd, is_expiry=False):
     yy = int(yymmdd[0:2])
     mm = yymmdd[2:4]
@@ -15,10 +15,20 @@ def format_mrz_date(yymmdd, is_expiry=False):
     return f"{dd}/{mm}/{year}"
 
 
+# td3 = passports(2 lines)
+# td1 = id cards(3 lines)
+# we pick the right checker based on how many lines the mrz block has
 def parse_mrz(mrz_text):
     lines = [line.strip() for line in mrz_text.strip().split("\n") if line.strip()]
     mrz_block = "\n".join(lines)
-    checker = TD3CodeChecker(mrz_block)
+
+    if len(lines) == 2:
+        checker = TD3CodeChecker(mrz_block)
+    elif len(lines) == 3:
+        checker = TD1CodeChecker(mrz_block)
+    else:
+        raise ValueError(f"unrecognized mrz format, expected 2 or 3 lines, got {len(lines)}")
+
     fields = checker.fields()
 
     return {

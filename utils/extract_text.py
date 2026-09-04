@@ -36,3 +36,10 @@ def extract_text_from_mixed_pdf(file_path):
                 page_text = ocr_pil_image(page_image)
                 full_text += page_text + "\n"
     return full_text
+
+
+# gets every word on a pdf page along with its position
+def extract_words_with_positions(file_path, page_number=0):
+    with pdfplumber.open(file_path) as pdf:
+        page = pdf.pages[page_number]
+        return page.extract_words()

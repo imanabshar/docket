@@ -14,7 +14,7 @@ def extract_id_number(text):
     return match.group(0) if match else None
 
 
-def parse(text):
+def parse(text, file_path=None):
     mrz_block = find_mrz_block(text)
     fields = parse_mrz(mrz_block)
 

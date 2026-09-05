@@ -18,7 +18,7 @@ def extract_owner_name(text):
     return match.group(1).strip() if match else None
 
 
-def parse(text):
+def parse(text, file_path=None):
     return {
         "issue_date": extract_after_label(text, "Issue Date"),
         "plot_no": extract_after_label(text, "Plot No"),

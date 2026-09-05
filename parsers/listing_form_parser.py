@@ -36,7 +36,7 @@ def extract_price_range(text):
     return None, None
 
 
-def parse(file_path):
+def parse(text, file_path):
     words = extract_words_with_positions(file_path)
     rows = group_words_into_rows(words)
 
@@ -62,8 +62,8 @@ def parse(file_path):
             fields["landlord_name"] = strip_label(full_line, "Landlord's Full Name: Mr. / Mrs. / Ms.")
 
     full_text = extract_text_from_mixed_pdf(file_path)
-    price_min, price_max = extract_price_range(full_text)
+    price_min, price_max = extract_price_range(text)
     fields["price_min"] = price_min
     fields["price_max"] = price_max
-
+    
     return fields

@@ -30,15 +30,9 @@ def process_document(file_path):
         raise ValueError(f"no parser available for doc type: {doc_type}")
 
     parser = PARSERS[doc_type]
-
-    # listing_form_parser takes file_path (needs position data), the rest take text
-    if doc_type == "listing_form":
-        fields = parser.parse(file_path)
-    else:
-        fields = parser.parse(text)
+    fields = parser.parse(text, file_path)  # uniform call, no more if/else
 
     return doc_type, fields
-
 
 if __name__ == "__main__":
     import sys

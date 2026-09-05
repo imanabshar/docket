@@ -8,7 +8,7 @@ def find_mrz_block(text):
     return "\n".join(mrz_lines[-2:])
 
 
-def parse(text):
+def parse(text, file_path=None):
     mrz_block = find_mrz_block(text)
     fields = parse_mrz(mrz_block)
     return fields

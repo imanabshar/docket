@@ -1,0 +1,14 @@
+.app {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.uploader button {
+  margin-left: 1rem;
+}
+
+.result {
+  margin-top: 2rem;
+  background: #f4f4f4;
+  padding: 1rem;
+}

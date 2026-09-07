@@ -59,7 +59,7 @@ def parse(text, file_path):
             fields["bathrooms"] = strip_label(right_text, "No. of Bathrooms:")
         if "Landlord's Full Name" in left_normalized:
             full_line = (left_text + " " + right_text).replace("’", "'")
-            fields["landlord_name"] = strip_label(full_line, "Landlord's Full Name: Mr. / Mrs. / Ms.")
+            fields["landlord_name"] = strip_label(full_line, "Landlord's Full Name:")
 
     full_text = extract_text_from_mixed_pdf(file_path)
     price_min, price_max = extract_price_range(text)

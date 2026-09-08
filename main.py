@@ -25,13 +25,13 @@ def process_document(file_path):
         raise ValueError(f"unsupported file type: {file_path}")
 
     doc_type = detect_doc_type(text)
-
+    if doc_type == "unknown":
+        raise ValueError("could not identify the document type — supported types: EID, passport, title deed, listing form")
     if doc_type not in PARSERS:
         raise ValueError(f"no parser available for doc type: {doc_type}")
 
     parser = PARSERS[doc_type]
-    fields = parser.parse(text, file_path)  # uniform call, no more if/else
-
+    fields = parser.parse(text, file_path)
     return doc_type, fields
 
 if __name__ == "__main__":

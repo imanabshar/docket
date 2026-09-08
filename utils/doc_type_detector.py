@@ -1,5 +1,5 @@
-# determine the type of document(based on unique keyowrds in each document) from extracted text
-# and if anything doesn't match falls back to ad_flyer(because flyer don't have specific keywords)
+# determine the type of document(based on unique keywords in each document) from extracted text
+# falls back to unknown if nothing matches
 def detect_doc_type(text):
     text_lower = text.lower()
 
@@ -11,4 +11,4 @@ def detect_doc_type(text):
         return "title_deed"
     if "listing form" in text_lower:
         return "listing_form"
-    return "ad_flyer"
+    return "unknown"

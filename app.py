@@ -26,10 +26,10 @@ async def extract(file: UploadFile):
         tmp_path = tmp.name
 
     try:
-        doc_type, fields = process_document(tmp_path)
+        doc_type, fields, warnings = process_document(tmp_path)
     except ValueError as e:
         return {"error": str(e)}
     finally:
         os.remove(tmp_path)
 
-    return {"doc_type": doc_type, "fields": fields}
+    return {"doc_type": doc_type, "fields": fields, "warnings": warnings}

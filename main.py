@@ -26,24 +26,26 @@ def process_document(file_path):
 
     doc_type = detect_doc_type(text)
     if doc_type == "unknown":
-        raise ValueError("could not identify the document type — supported types: EID, passport, title deed, listing form")
+        raise ValueError("could not identify the document type. Supported types: EID, passport, title deed, listing form")
     if doc_type not in PARSERS:
         raise ValueError(f"no parser available for doc type: {doc_type}")
 
     parser = PARSERS[doc_type]
-    fields = parser.parse(text, file_path)
-    return doc_type, fields
+    fields, warnings = parser.parse(text, file_path)
+    return doc_type, fields, warnings
 
 if __name__ == "__main__":
     import sys
     file_path = sys.argv[1]
-    doc_type, fields = process_document(file_path)
+    doc_type, fields, warnings = process_document(file_path)
 
     print(f"detected type: {doc_type}")
     print(fields)
+    if warnings:
+        print(f"warnings: {warnings}")
 
     os.makedirs("output", exist_ok=True)
     filename = os.path.splitext(os.path.basename(file_path))[0]
     output_path = f"output/{filename}_{doc_type}.json"
-    save_json(fields, output_path)
+    save_json({"doc_type": doc_type, "fields": fields, "warnings": warnings}, output_path)
     print(f"saved to: {output_path}")

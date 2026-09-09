@@ -1,5 +1,18 @@
 import re
 from utils.mrz_parser import parse_mrz
+from utils.warnings_helper import build_warnings
+
+
+EXPECTED_FIELDS = [
+    "name",
+    "nationality",
+    "date_of_birth",
+    "sex",
+    "expiry_date",
+    "country",
+    "id_number",
+    "card_number",
+]
 
 
 def find_mrz_block(text):
@@ -21,4 +34,6 @@ def parse(text, file_path=None):
     fields["id_number"] = extract_id_number(text)
     fields["card_number"] = fields.pop("document_number")  
 
-    return fields
+    warnings = build_warnings(fields, EXPECTED_FIELDS)
+
+    return fields, warnings

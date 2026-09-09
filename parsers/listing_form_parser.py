@@ -1,5 +1,19 @@
 import re
 from utils.extract_text import extract_words_with_positions, extract_text_from_mixed_pdf
+from utils.warnings_helper import build_warnings
+
+
+EXPECTED_FIELDS = [
+    "unit_no",
+    "building_name",
+    "community_name",
+    "location",
+    "bedrooms",
+    "bathrooms",
+    "landlord_name",
+    "price_min",
+    "price_max",
+]
 
 
 # groups words into rows based on top position(same line = close top values)
@@ -65,5 +79,7 @@ def parse(text, file_path):
     price_min, price_max = extract_price_range(text)
     fields["price_min"] = price_min
     fields["price_max"] = price_max
-    
-    return fields
+
+    warnings = build_warnings(fields, EXPECTED_FIELDS)
+
+    return fields, warnings

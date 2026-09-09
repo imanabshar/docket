@@ -9,5 +9,11 @@ export async function extractDocument(file) {
     body: formData,
   })
 
-  return response.json()
+  const data = await response.json()
+
+  if (!response.ok) {
+    return { error: data.detail }
+  }
+
+  return data
 }

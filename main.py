@@ -15,15 +15,19 @@ PARSERS = {
 
 
 def process_document(file_path):
-    kind = detect_file_type(file_path)
+    if os.path.getsize(file_path) == 0:
+        raise ValueError("file is empty")
 
+    kind, mime = detect_file_type(file_path)
     if kind == "pdf":
         text = extract_text_from_mixed_pdf(file_path)
     elif kind == "image":
         text = extract_text_from_image(file_path)
-    else:
-        raise ValueError(f"unsupported file type: {file_path}")
-
+    elif kind == "unsupported":
+        raise ValueError(f"unsupported file type: {mime}. Supported: PDF, JPG, PNG")
+    else:  # "unknown"
+        raise ValueError("could not read file, it may be corrupted")
+  
     doc_type = detect_doc_type(text)
     if doc_type == "unknown":
         raise ValueError("could not identify the document type. Supported types: EID, passport, title deed, listing form")

@@ -14,20 +14,18 @@
   --filebg: #F2F1ED;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --pagebg: #0F0E0D;
-    --paper: #1C1A18;
-    --sidebar-bg: #171512;
-    --ink: #EDEAE3;
-    --muted: #9C978B;
-    --faint: #6E6A62;
-    --accent: #B084A8;
-    --accent-soft: rgba(176, 132, 168, 0.16);
-    --success: #5CAE87;
-    --border: rgba(237, 234, 227, 0.14);
-    --filebg: #2A2724;
-  }
+.app-shell.dark-theme {
+  --pagebg: #0F0E0D;
+  --paper: #1C1A18;
+  --sidebar-bg: #171512;
+  --ink: #EDEAE3;
+  --muted: #9C978B;
+  --faint: #6E6A62;
+  --accent: #B084A8;
+  --accent-soft: rgba(176, 132, 168, 0.16);
+  --success: #5CAE87;
+  --border: rgba(237, 234, 227, 0.14);
+  --filebg: #2A2724;
 }
 
 * {
@@ -100,6 +98,10 @@ body {
   letter-spacing: -0.01em;
 }
 
+.app-shell.dark-theme .brand-name {
+  color: #B8B1A5;
+}
+
 .navitem {
   display: flex;
   align-items: center;
@@ -125,6 +127,13 @@ body {
 .navitem.disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.theme-toggle {
+  margin-left: auto;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .navitem svg {
@@ -493,6 +502,25 @@ body {
   max-width: 720px;
   margin: 0 auto;
   width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.result-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.result-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.result-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.result-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 
 .result-header {

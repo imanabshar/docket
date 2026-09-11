@@ -1,4 +1,4 @@
-function Sidebar() {
+function Sidebar({ darkTheme, onToggleTheme }) {
   return (
     <div className="sidebar">
       <div className="brand">
@@ -26,6 +26,13 @@ function Sidebar() {
         <a className="icon-tag" href="https://linkedin.com/in/imanabshar" target="_blank" rel="noreferrer" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z" /></svg>
         </a>
+        <button className="icon-tag theme-toggle" onClick={onToggleTheme} aria-label={darkTheme ? 'Switch to light theme' : 'Switch to dark theme'}>
+          {darkTheme ? (
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+          )}
+        </button>
       </div>
     </div>
   )

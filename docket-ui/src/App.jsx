@@ -6,6 +6,7 @@ import { extractDocument } from './api/docket'
 import './App.css'
 
 function App() {
+  const [darkTheme, setDarkTheme] = useState(false)
   const [file, setFile] = useState(null)
   const [resultFile, setResultFile] = useState(null)
   const [result, setResult] = useState(null)
@@ -37,8 +38,8 @@ function App() {
   }
 
   return (
-    <div className="app-shell">
-      <Sidebar />
+    <div className={`app-shell${darkTheme ? ' dark-theme' : ''}`}>
+      <Sidebar darkTheme={darkTheme} onToggleTheme={() => setDarkTheme(!darkTheme)} />
       <main className="main-panel">
         {result ? (
           <ResultPanel

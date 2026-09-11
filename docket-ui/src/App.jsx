@@ -16,6 +16,7 @@ function App() {
 
   const handleExtract = async () => {
     if (!file) return
+    setResult(null)
     setLoading(true)
     try {
       const data = await extractDocument(file)

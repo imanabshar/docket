@@ -7,6 +7,7 @@ import './App.css'
 
 function App() {
   const [file, setFile] = useState(null)
+  const [resultFile, setResultFile] = useState(null)
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -16,6 +17,7 @@ function App() {
 
   const handleExtract = async () => {
     if (!file) return
+    setResultFile(file)
     setResult(null)
     setLoading(true)
     try {
@@ -30,6 +32,7 @@ function App() {
 
   const handleReset = () => {
     setFile(null)
+    setResultFile(null)
     setResult(null)
   }
 
@@ -39,7 +42,7 @@ function App() {
       <main className="main-panel">
         {result ? (
           <ResultPanel
-            file={file}
+            file={resultFile}
             result={result}
             onReset={handleReset}
             onFileChange={handleFileChange}

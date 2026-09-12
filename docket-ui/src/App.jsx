@@ -2,11 +2,13 @@ import { useState } from 'react'
 import Sidebar from './components/Sidebar'
 import UploadPanel from './components/UploadPanel'
 import ResultPanel from './components/ResultPanel'
+import AboutPage from './components/AboutPage'
 import { extractDocument } from './api/docket'
 import './App.css'
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false)
+  const [view, setView] = useState('upload')
   const [file, setFile] = useState(null)
   const [resultFile, setResultFile] = useState(null)
   const [result, setResult] = useState(null)
@@ -37,11 +39,25 @@ function App() {
     setResult(null)
   }
 
+  const handleNavigate = (nextView) => {
+    if (nextView === 'upload') {
+      handleReset()
+    }
+    setView(nextView)
+  }
+
   return (
     <div className={`app-shell${darkTheme ? ' dark-theme' : ''}`}>
-      <Sidebar darkTheme={darkTheme} onToggleTheme={() => setDarkTheme(!darkTheme)} />
+      <Sidebar
+        darkTheme={darkTheme}
+        onToggleTheme={() => setDarkTheme(!darkTheme)}
+        activeView={view}
+        onNavigate={handleNavigate}
+      />
       <main className="main-panel">
-        {result ? (
+        {view === 'about' ? (
+          <AboutPage />
+        ) : result ? (
           <ResultPanel
             file={resultFile}
             result={result}

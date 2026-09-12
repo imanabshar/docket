@@ -1,4 +1,4 @@
-function Sidebar({ darkTheme, onToggleTheme }) {
+function Sidebar({ darkTheme, onToggleTheme, activeView, onNavigate }) {
   return (
     <div className="sidebar">
       <div className="brand">
@@ -6,12 +6,23 @@ function Sidebar({ darkTheme, onToggleTheme }) {
         <span className="brand-name">Docket</span>
       </div>
 
-      <div className="navitem active">
+      <div
+        className={`navitem${activeView === 'upload' ? ' active' : ''}`}
+        onClick={() => onNavigate('upload')}
+      >
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" /></svg>
         New extraction
       </div>
 
       <div className="seclabel">Workspace</div>
+      <div
+        className={`navitem${activeView === 'about' ? ' active' : ''}`}
+        onClick={() => onNavigate('about')}
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4M12 8h.01" /></svg>
+        About
+      </div>
+      
       <div className="navitem disabled" title="Coming soon">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M7 9h4M7 13h6" /></svg>
         Doc types

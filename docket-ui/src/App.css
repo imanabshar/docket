@@ -663,3 +663,101 @@ body {
   justify-content: center;
   padding: 16px 80px 24px;
 }
+
+.about-view {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 48px 64px 64px;
+}
+
+.about-hero {
+  max-width: 780px;
+  margin-bottom: 40px;
+}
+
+.about-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.about-lede {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.about-section {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.about-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.about-body {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+}
+
+.about-highlight {
+  border-left: 2px solid var(--accent);
+  padding-left: 16px;
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 780px;
+}
+
+.doc-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--paper);
+  border: 0.5px solid var(--faint);
+  border-radius: 10px;
+  padding: 18px;
+  transition: border-color 0.15s;
+}
+
+.doc-tile:hover {
+  border-color: var(--accent);
+}
+
+.doc-tile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.doc-tile-name {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.steps-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13.5px;
+  line-height: 2;
+  color: var(--ink);
+}
+

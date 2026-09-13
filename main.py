@@ -24,13 +24,13 @@ def process_document(file_path):
     elif kind == "image":
         text = extract_text_from_image(file_path)
     elif kind == "unsupported":
-        raise ValueError(f"unsupported file type: {mime}. Supported: PDF, JPG, PNG")
+        raise ValueError(f"unsupported file type: supported: pdf, jpg, and png.")
     else:  # "unknown"
-        raise ValueError("could not read file, it may be corrupted")
-  
+        raise ValueError("could not read file, it may be corrupted.")
+
     doc_type = detect_doc_type(text)
     if doc_type == "unknown":
-        raise ValueError("could not identify the document type. Supported types: EID, passport, title deed, listing form")
+        raise ValueError("could not identify the document type. supported types: eid, passport, title deed, and listing form.")
     if doc_type not in PARSERS:
         raise ValueError(f"no parser available for doc type: {doc_type}")
 

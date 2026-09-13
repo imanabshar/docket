@@ -22,11 +22,6 @@ function Sidebar({ darkTheme, onToggleTheme, activeView, onNavigate }) {
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="9" /><path d="M12 16v-4M12 8h.01" /></svg>
         About
       </div>
-      
-      <div className="navitem disabled" title="Coming soon">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M7 9h4M7 13h6" /></svg>
-        Doc types
-      </div>
 
       <div className="sidebar-spacer" />
 

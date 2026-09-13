@@ -673,7 +673,7 @@ body {
 
 .about-hero {
   max-width: 780px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .about-title {
@@ -759,5 +759,29 @@ body {
   font-size: 13.5px;
   line-height: 2;
   color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
+.step-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

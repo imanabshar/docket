@@ -4,17 +4,30 @@ function AboutPage() {
             <div className="about-hero">
                 <h1 className="about-title">Docket</h1>
                 <p className="about-lede">
-                    <p className="about-lede">
-                        Docket is a document processing tool that automates the extraction of structured data from various types of documents, handling everything from reading the file to returning clean, ready to use fields.
-                    </p>
+                    Docket is a document processing tool that automates the extraction of structured data from various types of documents, handling everything from reading the file to returning clean, ready to use fields.
                 </p>
             </div>
 
             <div className="about-section">
-                <h2 className="about-heading">What it does</h2>
-                <p className="about-body">
-                    Upload a PDF or image of a document, and Docket identifies the document type, runs OCR where needed, and returns the key fields as clean structured data ready to use as JSON.
-                </p>
+                <h2 className="about-heading">How it works</h2>
+                <div className="steps-list">
+                    <div className="step-row">
+                        <span className="step-num">1</span>
+                        <span>Upload a PDF or image of a document</span>
+                    </div>
+                    <div className="step-row">
+                        <span className="step-num">2</span>
+                        <span>Docket detects the document type automatically</span>
+                    </div>
+                    <div className="step-row">
+                        <span className="step-num">3</span>
+                        <span>Text is extracted using OCR when the file isn't already text based</span>
+                    </div>
+                    <div className="step-row">
+                        <span className="step-num">4</span>
+                        <span>Fields are parsed and returned as clean, structured JSON</span>
+                    </div>
+                </div>
             </div>
 
             <div className="about-section">
@@ -50,18 +63,8 @@ function AboutPage() {
             <div className="about-section">
                 <h2 className="about-heading">Built to extend</h2>
                 <p className="about-body about-highlight">
-                    Docket isn't locked to these four types. The pipeline is built around parsers: each document type is a small module that knows how to pull fields out of that layout, registered against a label for that type. Point Docket at a new kind of form, plug in a parser for it, and it works the same way. Same detection flow, same JSON output, and no changes to the core pipeline.
+                    Docket isn't locked to these four types. The pipeline is built around parsers: each document type is a small module that knows how to pull fields out of that layout. Point Docket at a new kind of form, plug in a parser for it, and it works the same way. Same detection flow, same JSON output, and no changes to the core pipeline.
                 </p>
-            </div>
-
-            <div className="about-section">
-                <h2 className="about-heading">How it works</h2>
-                <ol className="steps-list">
-                    <li>Upload a document</li>
-                    <li>Docket detects the document type automatically</li>
-                    <li>Text is extracted using OCR when the file isn't already text based</li>
-                    <li>Fields are parsed and returned as structured JSON</li>
-                </ol>
             </div>
 
         </div>

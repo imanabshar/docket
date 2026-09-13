@@ -13,6 +13,7 @@ function App() {
   const [resultFile, setResultFile] = useState(null)
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0])
@@ -44,15 +45,26 @@ function App() {
       handleReset()
     }
     setView(nextView)
+    setNavOpen(false)
   }
 
   return (
     <div className={`app-shell${darkTheme ? ' dark-theme' : ''}`}>
+      <button className="hamburger-btn" onClick={() => setNavOpen(true)} aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+
+      {navOpen && <div className="mobile-overlay" onClick={() => setNavOpen(false)} />}
+
       <Sidebar
         darkTheme={darkTheme}
         onToggleTheme={() => setDarkTheme(!darkTheme)}
         activeView={view}
         onNavigate={handleNavigate}
+        isOpen={navOpen}
+        onClose={() => setNavOpen(false)}
       />
       <main className="main-panel">
         {view === 'about' ? (

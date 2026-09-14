@@ -11,11 +11,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://docket-opal.vercel.app",
+    ],
     allow_methods=["POST"],
     allow_headers=["*"],
 )
-
 
 @app.post("/extract")
 async def extract(file: UploadFile):

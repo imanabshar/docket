@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000/extract'
+const API_URL = `${import.meta.env.VITE_API_URL}/extract`
 
 export async function extractDocument(file) {
   const formData = new FormData()

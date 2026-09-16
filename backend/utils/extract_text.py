@@ -2,13 +2,7 @@ import pdfplumber
 import numpy as np
 from paddleocr import PaddleOCR
 
-ocr_engine = PaddleOCR(
-    lang="en",
-    use_doc_orientation_classify=False,
-    use_doc_unwarping=False,
-    use_textline_orientation=False,
-    enable_mkldnn=False,
-)
+ocr_engine = PaddleOCR(use_angle_cls=True, lang="en", enable_mkldnn=False)
 
 
 # extract text from a standalone image file using ocr

@@ -4,10 +4,8 @@ Docket identifies what kind of document you've uploaded, extracts its text, and 
 <br><br>
 
 [![Docket Preview](/assets/preview.png)](https://docket-opal.vercel.app)
-*Live at [docket-opal.vercel.app](https://docket-opal.vercel.app)*
 
-
-## About
+## About The Project
 
 Plenty of documents carry the same handful of fields every time, yet getting that data out usually means opening each file and retyping it into another system. That doesn't scale, and it's an easy place for typos to creep in.
 
@@ -89,19 +87,19 @@ Adding a new document type doesn't touch the core pipeline:
 ```
 docket/
 ├── backend/
-│   ├── main.py                  
-│   ├── app.py                   
+│   ├── main.py              
+│   ├── app.py                 
 │   ├── Dockerfile
-│   ├── parsers/                 
+│   ├── parsers/            
 │   └── utils/
-│       ├── file_type.py         
-│       ├── extract_text.py      
-│       ├── doc_type_detector.py 
-│       ├── mrz_parser.py        
-│       ├── json_builder.py      
-│       └── warnings_helper.py   
-├── frontend/                   
-└── assets/                      
+│       ├── file_type.py       
+│       ├── extract_text.py  
+│       ├── doc_type_detector.py
+│       ├── mrz_parser.py  
+│       ├── json_builder.py
+│       └── warnings_helper.py
+├── frontend/
+└── assets/    
 ```
 
 ## Installation and Usage
@@ -142,8 +140,15 @@ npm run dev
 
 ## Notes
 
-- **Scanned pages are rendered at 150 DPI before OCR, not 300.** Rendering at 300 DPI produced images large enough to exhaust RAM during development and crash the process. 150 DPI costs a little accuracy in exchange for a pipeline that stays up.
-- **CORS is an allowlist.** If you host the frontend somewhere new, add its origin to the allowed origins in `app.py`, or uploads from it will be blocked.  
+- **Scanned pages are rendered at 150 DPI before OCR, not 300.** At 300 DPI the images were large enough to exhaust RAM and crash the process. 150 DPI costs a little accuracy but keeps the pipeline up.
+- **Scanned pages are slower by design.** OCR is the slow step, so scanned and image uploads take noticeably longer than documents with a real text layer.
+- **CORS is an allowlist.** If you host the frontend somewhere new, add its origin to the allowed origins in `app.py`, or uploads from it will be blocked.
+
+## Live Demo
+
+**Try it here:** [docket-opal.vercel.app](https://docket-opal.vercel.app)
+
+- The backend runs on Render's free tier (512 MB RAM), which is not enough for PaddleOCR. Only the first request succeeds. After that the server runs out of memory and restarts, so later uploads may fail until it's back up. 
 
 ## Built With
 

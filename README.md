@@ -1,6 +1,11 @@
 # Docket
 
 Docket identifies what kind of document you've uploaded, extracts its text, and returns the key fields as clean, structured data.
+<br><br>
+
+[![Docket Preview](/assets/preview.png)](https://docket-opal.vercel.app)
+*Live at [docket-opal.vercel.app](https://docket-opal.vercel.app)*
+
 
 ## About
 
@@ -131,6 +136,7 @@ In a second terminal, from the repo root:
 ```bash
 cd frontend
 npm install
+echo "VITE_API_URL=http://localhost:8000" > .env
 npm run dev
 ```
 

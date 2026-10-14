@@ -9,7 +9,7 @@ Docket identifies what kind of document you've uploaded, extracts its text, and 
 
 Plenty of documents carry the same handful of fields every time, yet getting that data out usually means opening each file and retyping it into another system. That doesn't scale, and it's an easy place for typos to creep in.
 
-Docket automates that step. Upload a PDF or image and it works out what kind of document it is, extracts the text, pulls the fields specific to that document type, and hands back JSON instead of a document someone has to read by hand.
+Docket automates that step. Upload a PDF or image and it works out what kind of document it is, extracts the text, pulls the fields specific to that document type, and hands back JSON instead of a document someone has to read.
 
 It isn't locked to the document types it ships with. Each type is a small parser module, and a dispatcher routes every document to the right one. To support a new document, add a parser. The detection flow, the output format, and the core pipeline stay the same.
 
@@ -42,11 +42,13 @@ Routes the text to the matching parser, which returns the document's fields alon
 
 There's no single extraction method that works for every document, so each parser uses whichever technique its layout makes reliable.
 
-- **MRZ parsing (Emirates ID, passport):** These documents carry a machine-readable zone with a standardized format, so the fields can be decoded from that rather than from the visual layout. The parser handles both the 3-line format used on ID cards and the 2-line format used on passports. On the Emirates ID, the MRZ holds the card number rather than the national ID number printed on the front, so the national ID number is picked up separately from the front-page text.
 - **Label-based extraction (title deed):** The document has clearly labeled fields, so the parser finds each label and reads the value that belongs to it.
+  
+- **MRZ parsing (Emirates ID, passport):** These documents carry a machine-readable zone with a standardized format, so the fields can be decoded from that rather than from the visual layout. The parser handles both the 3-line format used on ID cards and the 2-line format used on passports. On the Emirates ID, the MRZ holds the card number rather than the national ID number printed on the front, so the national ID number is picked up separately from the front-page text.
+
 - **Position-based extraction (listing form):** Fields sit side by side, and PDF text extraction can reorder them, which made label-based matching grab the wrong values. This parser uses word coordinates to work out which value belongs to which label.
 
-## API
+## API Example
 
 The backend exposes one endpoint.
 
@@ -72,15 +74,23 @@ Example response (sample data):
 }
 ```
 
-If something goes wrong (unsupported file, unrecognized document, unreadable file), the response is `{"error": "message"}`.
+If something goes wrong, the response is `{"error": "message"}`.
 
 ## Extending Docket
 
-Adding a new document type doesn't touch the core pipeline:
+Adding a new document type is straightforward and
+doesn't require changes to the core pipeline:
 
-1. Write a parser module in `backend/parsers/` with a `parse(text, file_path)` function that returns `(fields, warnings)`. `build_warnings` in `utils/warnings_helper.py` flags any expected field that came back empty.
-2. Add the keywords that identify the document type to `detect_doc_type` in `utils/doc_type_detector.py`.
-3. Register the parser in the `PARSERS` dictionary in `main.py`.
+1. Create a parser module in `backend/parsers/` with a
+   `parse(text, file_path)` function that returns
+   `(fields, warnings)` for the extracted document data.
+
+2. Add the relevant identifying keywords to
+   `detect_doc_type` in `utils/doc_type_detector.py`
+   so Docket can recognize the new document type.
+
+3. Register the new parser in the `PARSERS` dictionary
+   in `main.py` to connect it to the processing pipeline.
 
 ## Project Structure
 
@@ -104,7 +114,7 @@ docket/
 
 ## Installation and Usage
 
-Requires Python 3.11 or newer, Node.js, and a few GB of free RAM, since PaddleOCR is memory-hungry.
+**Prerequisites:** Python 3.11+, Node.js, npm, and a few GB of free RAM.
 
 ### 1. Clone the repository
 
@@ -122,14 +132,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 uvicorn app:app --reload --port 8000
 ```
+**Note:** PaddleOCR downloads its models on the first run, which may take some time.
+- **CLI usage (optional):**
 
-The first run may take a while: PaddleOCR downloads its models the first time it's used.
-
-You can also run a single file from the command line without the API: `python main.py path/to/document.pdf` prints the extracted fields and saves them as JSON in `output/`.
+```bash
+python main.py path/to/document.pdf
+```
+Extracted fields are printed to the terminal and saved as JSON in output/.
 
 ### 3. Set up the frontend
-
-In a second terminal, from the repo root:
 
 ```bash
 cd frontend
@@ -139,16 +150,16 @@ npm run dev
 ```
 
 ## Notes
-
-- **Scanned pages are rendered at 150 DPI before OCR, not 300.** At 300 DPI the images were large enough to exhaust RAM and crash the process. 150 DPI costs a little accuracy but keeps the pipeline up.
+- **OCR uses 150 DPI instead of 300.** Lower resolution reduces RAM usage and prevents crashes, with a slight trade-off in accuracy.
 - **Scanned pages are slower by design.** OCR is the slow step, so scanned and image uploads take noticeably longer than documents with a real text layer.
 - **CORS is an allowlist.** If you host the frontend somewhere new, add its origin to the allowed origins in `app.py`, or uploads from it will be blocked.
+- **Temporary file handling.** Uploaded files are written to a temporary location for processing and are deleted immediately after processing is complete.
 
 ## Live Demo
 
 **Try it here:** [docket-opal.vercel.app](https://docket-opal.vercel.app)
 
-- The backend runs on Render's free tier (512 MB RAM), which is not enough for PaddleOCR. Only the first request succeeds. After that the server runs out of memory and restarts, so later uploads may fail until it's back up. 
+> The backend runs on Render's free tier (512 MB RAM), which is not enough for PaddleOCR. Only the first request succeeds. After that server runs out of memory and restarts, so later uploads may fail until it's back up. 
 
 ## Built With
 
